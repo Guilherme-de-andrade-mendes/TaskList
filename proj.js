@@ -3,21 +3,28 @@ let li = document.querySelectorAll('.list-group-item list-group-item-action');
 let divTask = document.querySelector('.list-group');
 let inpTask = document.querySelector('.form-control');
 
-btn.onclick = () => {
-    const linha = document.createElement('li');
-    linha.setAttribute('class', 'list-group-item list-group-item-action');
-    linha.setAttribute('onclick', 'removeTask(this)');
+let tasks = [];
 
-    const alerta = document.createElement('div');
-    alerta.setAttribute('class','alert alert-warning');
-    alerta.setAttribute('role','alert');
-    alerta.innerHTML = 'Tarefa vazia...';
+const renderData = () =>{
+    divTask.textContent = "";
+    for(t of tasks){
+        const linha = document.createElement('li');
+        linha.setAttribute('class', 'list-group-item list-group-item-action');
+        linha.setAttribute('onclick', 'removeTask(this)');
 
-    (inpTask.value !== '' ? (linha.textContent = inpTask.value) : (linha.appendChild(alerta)));
-    ;
-
-    divTask.appendChild(linha);
-    inpTask.value = '';
+        const alerta = document.createElement('li');
+        alerta.setAttribute('class','alert alert-warning');
+        alerta.setAttribute('role','alert');
+        alerta.innerHTML = 'Tarefa vazia...';
+        (t !== '' ? (linha.textContent = t) : (linha.appendChild(alerta)));
+        divTask.appendChild(linha);
+    }
 }
 
 const removeTask = (elemento => divTask.removeChild(elemento));
+
+btn.onclick = () => {
+    tasks.push(inpTask.value);
+    inpTask.value = '';
+    renderData();
+}
