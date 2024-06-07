@@ -1,30 +1,46 @@
 let btn = document.querySelector('.btn-primary');
-let li = document.querySelectorAll('.list-group-item list-group-item-action');
-let divTask = document.querySelector('.list-group');
+let listTask = document.querySelector('.list-group');
 let inpTask = document.querySelector('.form-control');
 
 let tasks = [];
 
-const renderData = () =>{
-    divTask.textContent = "";
-    for(t of tasks){
-        const linha = document.createElement('li');
-        linha.setAttribute('class', 'list-group-item list-group-item-action');
-        linha.setAttribute('onclick', 'removeTask(this)');
-
-        const alerta = document.createElement('li');
-        alerta.setAttribute('class','alert alert-warning');
-        alerta.setAttribute('role','alert');
-        alerta.innerHTML = 'Tarefa vazia...';
-        (t !== '' ? (linha.textContent = t) : (linha.appendChild(alerta)));
-        divTask.appendChild(linha);
-    }
+const renderData = () => {
+    listTask.textContent = "";
+    tasks.forEach(element => {
+        const stringText = document.createElement('li');
+        stringText.setAttribute('class', 'list-group-item list-group-item-action');
+        stringText.setAttribute('onclick', 'removeTask(this)');
+        stringText.textContent = element;
+        listTask.appendChild(stringText);
+    });
 }
 
-const removeTask = (elemento => divTask.removeChild(elemento));
+const removeTask = (elemento) => {
+    listTask.removeChild(elemento);
+    tasks = tasks.filter(task => task !== elemento.textContent);
+}
+
+const removeSpans = () => {
+    let spans = document.querySelectorAll('span');
+    spans.forEach(span => {
+        span.parentNode.removeChild(span);
+    })
+}
 
 btn.onclick = () => {
-    tasks.push(inpTask.value);
-    inpTask.value = '';
-    renderData();
+    let taskValue = inpTask.value.trim();
+    if (taskValue !== "") {
+        tasks.push(taskValue);
+        inpTask.value = '';
+        removeSpans();
+        renderData();
+    } else {
+        removeSpans();
+        let card = document.querySelector('.card');
+        const span = document.createElement('span');
+        span.setAttribute('class', 'alert alert-warning');
+        span.setAttribute('role','alert');
+        span.innerHTML = "Tarefa vazia...";
+        card.appendChild(span);
+    }
 }
