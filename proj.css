@@ -1,32 +1,73 @@
-*{
+:root {
+    --background-color: #032221;
+    --card-background-color: #f1f7f6;
+    --primary-color: #00Df81;
+    --primary-hover-color: #05804c;
+    --text-color: white;
+    --bs-primary: #00Df81;
+    --bs-primary-hover: #05804c; 
+    --bs-input-focus-border-color: #00Df81;
+}
+
+* {
     padding: 0;
     margin: 0;
 }
-body{
-    background-color: #032221;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-.card{
-    margin-top: 1em;
-    background-color: #f1f7f6;
-}
-.card-header{
 
+body {
+    background-color: var(--background-color);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: var(--text-color);
 }
-.btn-primary{
-    background-color: #00Df81;
+
+.card {
+    margin-top: 1em;
+    background-color: var(--card-background-color);
+    border: 1px solid var(--background-color);
+}
+
+.card-header {
+    background-color: var(--primary-color);
+    color: var(--background-color);
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 1em;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
     font-size: medium;
     font-weight: bold;
-    border: 1px solid #032221;
+    border: 1px solid var(--background-color);
+}
 
+.btn-primary:hover {
+    background-color: var(--primary-hover-color);
 }
-.btn-primary:hover{
-    background-color: #05804c;
-    font-size: medium;
+
+.btn-primary:focus,
+.btn-primary:hover {
+    background-color: var(--bs-primary-hover);
+    border-color: var(--bs-primary-hover);
+    box-shadow: 0 0 0 0.25rem rgba(0, 223, 129, 0.25);
 }
-#console{
-    color: white;
-    background-color: rgb(33, 34, 35);
-    width: 40vw;
-    height: 50vh;
+
+.form-control:focus {
+    border-color: var(--bs-input-focus-border-color);
+    box-shadow: 0 0 0 0.25rem rgba(0, 223, 129, 0.25);
+}
+
+.list-group-item {
+    background-color: var(--card-background-color);
+    border: 1px solid var(--background-color);
+}
+
+.list-group-item:hover {
+    background-color: var(--primary-hover-color);
+    color: var(--background-color);
+    cursor: pointer;
 }

@@ -1,8 +1,7 @@
 let btn = document.querySelector('.btn-primary');
 let listTask = document.querySelector('.list-group');
-let inpTask = document.querySelector('.form-control');
 
-let tasks = [];
+let tasks = JSON.parse(localStorage.getItem('Tasks')) || [];
 
 const renderData = () => {
     listTask.textContent = "";
@@ -13,11 +12,15 @@ const renderData = () => {
         stringText.textContent = element;
         listTask.appendChild(stringText);
     });
+    saveDataStorage();
 }
 
 const removeTask = (elemento) => {
     listTask.removeChild(elemento);
-    tasks = tasks.filter(task => task !== elemento.textContent);
+    tasks = tasks.filter(task => 
+        task !== elemento.textContent
+    );
+    saveDataStorage();
 }
 
 const removeSpans = () => {
@@ -28,6 +31,7 @@ const removeSpans = () => {
 }
 
 btn.onclick = () => {
+    let inpTask = document.querySelector('.form-control');
     let taskValue = inpTask.value.trim();
     if (taskValue !== "") {
         tasks.push(taskValue);
@@ -43,4 +47,12 @@ btn.onclick = () => {
         span.innerHTML = "Tarefa vazia...";
         card.appendChild(span);
     }
+}
+
+const saveDataStorage = () => {
+    localStorage.setItem('Tasks', JSON.stringify(tasks));
+}
+
+document.body.onload = () => {
+    renderData();
 }
